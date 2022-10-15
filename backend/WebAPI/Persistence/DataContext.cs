@@ -9,6 +9,12 @@ public class DataContext : DbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Area>().HasMany(x => x.Points).WithOne(x => x.Area).HasForeignKey(x => x.AreaId);
+    }
+
     public DbSet<Area> Areas { get; set; } = default!;
     public DbSet<Point> Points { get; set; } = default!;
     public DbSet<Category> Categories { get; set; } = default!;
