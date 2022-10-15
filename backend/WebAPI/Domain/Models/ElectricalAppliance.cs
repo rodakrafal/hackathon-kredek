@@ -2,9 +2,11 @@
 {
     public class ElectricalAppliance
     {
-        public int Id { get; set; }
-        public int CategoryId { get; set; }
+        public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
+        public Guid ElectricityUsageRecordId { get; set; }
         public int Amount { get; set; }
-        public Category Category { get; set; }
+        public Category Category { get; set; } = default!;
+        public ElectricityUsageRecord ElectricityUsageRecord { get; set; } = default!;
     }
 }

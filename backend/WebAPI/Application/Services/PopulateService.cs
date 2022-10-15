@@ -34,10 +34,12 @@ namespace Application.Services
 
             if (data is not null)
             {
-                _dataContext.Areas
-                    .AddRange(data.GroupBy(x => x.Name)
+                var areas = data.GroupBy(x => x.Name)
                         .Select(x => x.First())
-                        .Distinct());
+                        .Distinct()
+                        .ToList();
+                _dataContext.Areas
+                    .AddRange(areas);
                 _dataContext.SaveChanges();
             }
         }
