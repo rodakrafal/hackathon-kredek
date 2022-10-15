@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
     public class ElectricityUsageRecordInputModel
     {
@@ -14,7 +8,7 @@ namespace Domain.Models
 
         public int YearlyUsage { get; set; }
 
-        public List<Guid>? ElectricalAppliancesIds { get; set; }
+        public List<ElectricalApplianceInputModel>? ElectricalAppliances { get; set; }
 
         public bool Publish { get; set; } = false;
     }

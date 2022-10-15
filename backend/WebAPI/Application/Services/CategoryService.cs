@@ -2,6 +2,7 @@
 using Application.Services.Utilities;
 using AutoMapper;
 using Domain.Models;
+using Domain.ViewModels;
 using Persistence;
 using System;
 using System.Collections.Generic;

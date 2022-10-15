@@ -26,7 +26,7 @@ namespace API.Controllers
             var x = input.X;
             var y = input.Y;
             var yearlyUsage = input.YearlyUsage;
-            var electricalAppliances = input.ElectricalAppliancesIds;
+            var electricalAppliances = input.ElectricalAppliances;
             var publish = input.Publish;
 
             var result = _electricityUsageRecordsService.AddElectricityUsageRecord(x, y, yearlyUsage, electricalAppliances, publish);

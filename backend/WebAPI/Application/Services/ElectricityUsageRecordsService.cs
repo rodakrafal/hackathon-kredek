@@ -2,6 +2,8 @@
 using Application.Services.Utilities;
 using AutoMapper;
 using Domain.Models;
+using Domain.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Services
@@ -17,13 +19,14 @@ namespace Application.Services
             _electricityUsageRecordStatsService = electricityUsageRecordStatsService;
         }
 
-        public ServiceResponse<IEnumerable<ElectricityUsageRecord>> GetElectricityUsageRecords()
+        public ServiceResponse<IEnumerable<ElectricityUsageRecordViewModel>> GetElectricityUsageRecords()
         {
-            var result = Context.ElectricityUsageRecords.ToList();
-            return new ServiceResponse<IEnumerable<ElectricityUsageRecord>>(System.Net.HttpStatusCode.OK, result);
+            var records = Context.ElectricityUsageRecords.Include(x => x.Point).Include(x => x.Point.Area).ToList();
+            var result = records.Select(Mapper.Map<ElectricityUsageRecord, ElectricityUsageRecordViewModel>).ToList();
+            return new ServiceResponse<IEnumerable<ElectricityUsageRecordViewModel>>(System.Net.HttpStatusCode.OK, result);
         }
 
-        public ServiceResponse<ElectricityUsageRecordStats> AddElectricityUsageRecord(int x, int y, int yearlyUsage, List<Guid>? electricalApplianceIds, bool publish)
+        public ServiceResponse<ElectricityUsageRecordStats> AddElectricityUsageRecord(int x, int y, int yearlyUsage, List<ElectricalApplianceInputModel>? electricalAppliancesInput, bool publish)
         {
             var point = new Point()
             {
@@ -37,6 +40,15 @@ namespace Application.Services
                 ElectricalAppliances = new List<ElectricalAppliance>(),
                 CreatedAt = DateTime.Now
             };
+
+            var electricalAppliances = electricalAppliancesInput.Select(x => new ElectricalAppliance()
+            {
+                CategoryId = x.CategoryId,
+                Amount = x.Amount,
+                ElectricityUsageRecord = electricityRecord
+            }).ToList();
+
+            electricityRecord.ElectricalAppliances = electricalAppliances;
 
             if (publish)
             {
