@@ -50,8 +50,8 @@ export const Calculator: React.FC = () => {
                 minHeight="100%"
             >
                 <Box>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '30vw' }}>
-                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{width: '40vw'}}>
                             <Tab label="Szacowane zużycie" {...a11yProps(0)} />
                             <Tab label="Item Two" {...a11yProps(1)} />
                         </Tabs>
