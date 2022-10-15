@@ -9,5 +9,6 @@ public class Category
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = default!;
-    public ICollection<Event> Events { get; set; } = default!;
+    public int Usage { get; set; }
+    public ICollection<ElectricityUsageRecord> ElectricityUsageRecords { get; set; } = default!;
 }
