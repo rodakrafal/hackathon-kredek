@@ -21,11 +21,19 @@ namespace API.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
-        [HttpPost]
+        [HttpPost("areas")]
         public IActionResult PopulateAreas()
         {
             _populateService.PopulateAreas(_hostEnvironment.WebRootPath);
 
+            return Ok();
+        }
+
+        [HttpPost("categories")]
+        public IActionResult PopulateCategories()
+        {
+            _populateService.PopulateCategories();
+            
             return Ok();
         }
     }

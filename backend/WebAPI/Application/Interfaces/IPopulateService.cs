@@ -9,7 +9,7 @@ namespace Application.Interfaces
     public interface IPopulateService
     {
         void PopulateAreas(string dataPath);
-        void PopulateCategoriesAndAppliances();
+        void PopulateCategories();
 
     }
 }

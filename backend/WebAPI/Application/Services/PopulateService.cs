@@ -44,46 +44,59 @@ namespace Application.Services
             }
         }
 
-        public void PopulateCategoriesAndAppliances()
+        public void PopulateCategories()
         {
             var categories = new List<Category>
             {
                 new()
                 {
                     Name = "Komputer stacjonarny",
-                    Usage = 5
+                    Usage = 3
                 },
                 new()
                 {
                     Name = "Laptop",
-                    Usage = 0
+                    Usage = 3
                 },
                 new()
                 {
                     Name = "Telewizor",
-                    Usage = 0
+                    Usage = 3
                 },
                 new()
                 {
-                    Name = "",
-                    Usage = 0
+                    Name = "Klimatyzacja",
+                    Usage = 3
                 },
                 new()
                 {
-                    Name = "",
-                    Usage = 0
+                    Name = "Lodówka",
+                    Usage = 3
                 },
                 new()
                 {
-                    Name = "",
-                    Usage = 0
+                    Name = "Zmywarka",
+                    Usage = 3
                 },
                 new()
                 {
-                    Name = "",
+                    Name = "Pralka",
+                    Usage = 3
+                },
+                new()
+                {
+                    Name = "Piec elektryczny",
+                    Usage = 3
+                },
+                new()
+                {
+                    Name = "Piec (inne)",
                     Usage = 0
                 },
             };
+
+            _dataContext.Categories.AddRange(categories);
+            _dataContext.SaveChanges();
         }
     }
 }
