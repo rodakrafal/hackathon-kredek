@@ -12,8 +12,8 @@ public class ElectricityUsageRecord
     public int YPosition { get; set; }
     public int YearlyUsage { get; set; }
     public DateTime CreatedAt { get; set; }
-    public Guid AreaId { get; set; }
-    public Area Area { get; set; } = default!;
+    public Guid PointId { get; set; }
+    public Point Point { get; set; } = default!;
     public ICollection<ElectricalAppliance> ElectricalAppliances { get; set; } = default!;
 
 }
