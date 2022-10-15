@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   app:
-    container_name: nokia-upvoter
-    image: nokia-upvoter
+    container_name: hachaton-frontend
+    image: hachaton-frontend
     build:
       context: .
       target: development

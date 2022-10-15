@@ -1,4 +1,3 @@
-import { gql, useLazyQuery } from "@apollo/client";
 import { useState } from "react";
 import { deafultUser, UserInfo } from "../../context/UserContext/utils";
 
@@ -26,17 +25,6 @@ export function validateUserData(user: State) {
 
   return { error, isCorrect };
 }
-
-export const USER_LOGIN = gql`
-  query userLogin($username: String!, $auth: String!) {
-    userLogin(username: $username, auth: $auth) {
-      accessToken
-      tokenType
-      username
-      error
-    }
-  }
-`;
 
 // const handleLogin = (username: string, password: string): LoginResponse => {
 //   const auth = btoa(`${username}:${password}`);
