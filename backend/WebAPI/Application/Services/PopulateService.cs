@@ -51,7 +51,7 @@ namespace Application.Services
                 new()
                 {
                     Name = "Komputer stacjonarny",
-                    Usage = 934000
+                    Usage = 634000
                 },
                 new()
                 {
@@ -93,8 +93,14 @@ namespace Application.Services
                     Name = "Piec (inne)",
                     Usage = 110000
                 },
+                new()
+                {
+                    Name = "Odkurzacz",
+                    Usage = 30000
+                },
             };
 
+            _dataContext.Categories.RemoveRange(_dataContext.Categories.ToArray());
             _dataContext.Categories.AddRange(categories);
             _dataContext.SaveChanges();
         }

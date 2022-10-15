@@ -41,7 +41,7 @@ namespace Application.Services
                 CreatedAt = DateTime.Now
             };
 
-            var electricalAppliances = electricalAppliancesInput.Select(x => new ElectricalAppliance()
+            var electricalAppliances = electricalAppliancesInput!.Select(x => new ElectricalAppliance()
             {
                 CategoryId = x.CategoryId,
                 Amount = x.Amount,

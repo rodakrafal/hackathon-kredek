@@ -18,7 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import * as React from "react";
 import { appName } from "../types/appInfo";
-import { FieldIcon } from "../components";
+import { FieldIcon } from "../components/FieldIcon";
 
 interface Props {
   window?: () => Window;

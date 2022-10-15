@@ -10,6 +10,6 @@ namespace Domain.ViewModels
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = default!;
-        public string Usage { get; set; } = default!;
+        public int Usage { get; set; } = default!;
     }
 }

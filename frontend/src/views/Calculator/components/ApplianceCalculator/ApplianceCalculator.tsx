@@ -3,10 +3,12 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { Category } from "../../utils"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { IconButton, Tooltip, Typography } from '@mui/material';
+import { CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
+import { LoadingSpinner } from '../../../../components/LoadingSpinner/intex';
+import axios from 'axios';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -18,34 +20,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export const ApplianceCalculator: React.FC = () => {
     const [cost, setCost] = useState(0);
+    const [loading, setLoading] = useState(true);
 
-    const [categories, setCategories] = useState<Category[]>([
-        {
-            id: '1',
-            name: 'test',
-            usage: 1
-        },
-        {
-            id: '2',
-            name: 'test',
-            usage: 2
-        },
-        {
-            id: '3',
-            name: 'test',
-            usage: 3
-        },
-        {
-            id: '4',
-            name: 'test',
-            usage: 4
-        },
-        {
-            id: '5',
-            name: 'test',
-            usage: 5
-        },
-    ]);
+    useEffect(() => {
+        axios.get<Category[]>('https://localhost:7190/api/category')
+            .then(response => setCategories(response.data))
+            .then(() => setLoading(false));
+    },[]);
+
+    const [categories, setCategories] = useState<Category[]>([]);
 
     const handleAdd = (id: string) => {
         let category = categories.find(x => x.id === id);
@@ -55,6 +38,8 @@ export const ApplianceCalculator: React.FC = () => {
         if (!category.amount) category.amount = 0;
 
         category.amount++;
+        console.log(typeof(cost));
+        console.log(typeof(category.usage));
         setCost(cost + category.usage);
 
         let filtredCategories = categories.filter(x => x.id !== id);
@@ -73,12 +58,16 @@ export const ApplianceCalculator: React.FC = () => {
         if (category.amount === 0) return;
 
         category.amount--;
+        console.log(typeof(cost));
+        console.log(typeof(category.usage));
         setCost(cost - category.usage);
 
         let filtredCategories = categories.filter(x => x.id !== id);
 
         setCategories([...filtredCategories, category]);
     }
+
+    if (loading) return <LoadingSpinner />
 
     return (
         <>
@@ -93,8 +82,8 @@ export const ApplianceCalculator: React.FC = () => {
                     }}
                 >
                     {categories.sort((a, b) => a.id.localeCompare(b.id)).map((category) => (
-                        <Tooltip title={category.usage}>
-                            <Item id={category.id}>
+                        <Tooltip title={category.usage} key={category.id}>
+                            <Item>
                                 <IconButton aria-label="add" onClick={() => handleAdd(category.id)}>
                                     <AddIcon />
                                 </IconButton>
