@@ -10,6 +10,8 @@ public class Point
     public Guid Id { get; set; }
     public int XPosition { get; set; }
     public int YPosition { get; set; }
+    public Guid? RecordId { get; set; }
+    public ElectricityUsageRecord ElectricityUsageRecord { get; set; } = default!;
     public Guid AreaId { get; set; }
     public Area Area { get; set; } = default!;
 }

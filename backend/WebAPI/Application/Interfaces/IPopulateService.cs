@@ -8,7 +8,8 @@ namespace Application.Interfaces
 {
     public interface IPopulateService
     {
-        void Populate(string path);
+        void PopulateAreas(string dataPath);
+        void PopulateCategoriesAndAppliances();
 
     }
 }

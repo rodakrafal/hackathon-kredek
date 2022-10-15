@@ -22,9 +22,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Populate()
+        public IActionResult PopulateAreas()
         {
-            _populateService.Populate(_hostEnvironment.WebRootPath);
+            _populateService.PopulateAreas(_hostEnvironment.WebRootPath);
 
             return Ok();
         }

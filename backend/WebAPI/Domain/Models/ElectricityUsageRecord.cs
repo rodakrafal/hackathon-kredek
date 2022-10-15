@@ -8,8 +8,6 @@ namespace Domain.Models;
 public class ElectricityUsageRecord
 {
     public Guid Id { get; set; }
-    public int XPosition { get; set; }
-    public int YPosition { get; set; }
     public int YearlyUsage { get; set; }
     public DateTime CreatedAt { get; set; }
     public Guid PointId { get; set; }

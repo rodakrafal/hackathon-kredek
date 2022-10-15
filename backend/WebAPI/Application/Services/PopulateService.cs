@@ -19,9 +19,9 @@ namespace Application.Services
         {
             _dataContext = dataContext;
         }
-        public void Populate(string path)
+        public void PopulateAreas(string dataPath)
         {
-            var filePath = Path.Combine(path, "geo_data.json");
+            var filePath = Path.Combine(dataPath, "geo_data.json");
 
             var text = File.ReadAllText(filePath);
 
@@ -42,6 +42,48 @@ namespace Application.Services
                     .AddRange(areas);
                 _dataContext.SaveChanges();
             }
+        }
+
+        public void PopulateCategoriesAndAppliances()
+        {
+            var categories = new List<Category>
+            {
+                new()
+                {
+                    Name = "Komputer stacjonarny",
+                    Usage = 5
+                },
+                new()
+                {
+                    Name = "Laptop",
+                    Usage = 0
+                },
+                new()
+                {
+                    Name = "Telewizor",
+                    Usage = 0
+                },
+                new()
+                {
+                    Name = "",
+                    Usage = 0
+                },
+                new()
+                {
+                    Name = "",
+                    Usage = 0
+                },
+                new()
+                {
+                    Name = "",
+                    Usage = 0
+                },
+                new()
+                {
+                    Name = "",
+                    Usage = 0
+                },
+            };
         }
     }
 }
