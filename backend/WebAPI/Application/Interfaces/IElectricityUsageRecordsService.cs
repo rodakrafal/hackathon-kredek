@@ -1,5 +1,6 @@
 ﻿using Application.Services.Utilities;
 using Domain.Models;
+using Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Application.Interfaces
 {
     public interface IElectricityUsageRecordsService
     {
-        ServiceResponse<IEnumerable<ElectricityUsageRecord>> GetElectricityUsageRecords();
-        ServiceResponse<ElectricityUsageRecordStats> AddElectricityUsageRecord(int x, int y, int yearlyUsage, List<Guid>? electricalApplianceIds, bool publish);
+        ServiceResponse<IEnumerable<ElectricityUsageRecordViewModel>> GetElectricityUsageRecords();
+        ServiceResponse<ElectricityUsageRecordStats> AddElectricityUsageRecord(int x, int y, int yearlyUsage, List<ElectricalApplianceInputModel>? electricalApplianceIds, bool publish);
     }
 }

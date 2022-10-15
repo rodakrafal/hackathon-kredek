@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Models;
+using Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
