@@ -35,6 +35,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IPopulateService, PopulateService>();
         services.AddScoped<IElectricityUsageRecordsService, ElectricityUsageRecordsService>();
         services.AddScoped<IElectricityUsageRecordStatsService, ElectricityUsageRecordStatsService>();
+        services.AddScoped<ICategoryService, CategoryService>();
 
         return services;
     }
