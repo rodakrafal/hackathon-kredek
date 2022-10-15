@@ -51,47 +51,47 @@ namespace Application.Services
                 new()
                 {
                     Name = "Komputer stacjonarny",
-                    Usage = 3
+                    Usage = 934000
                 },
                 new()
                 {
                     Name = "Laptop",
-                    Usage = 3
+                    Usage = 200000
                 },
                 new()
                 {
                     Name = "Telewizor",
-                    Usage = 3
+                    Usage = 35000
                 },
                 new()
                 {
                     Name = "Klimatyzacja",
-                    Usage = 3
+                    Usage = 150000
                 },
                 new()
                 {
                     Name = "Lodówka",
-                    Usage = 3
+                    Usage = 300600
                 },
                 new()
                 {
                     Name = "Zmywarka",
-                    Usage = 3
+                    Usage = 262000
                 },
                 new()
                 {
                     Name = "Pralka",
-                    Usage = 3
+                    Usage = 150000
                 },
                 new()
                 {
                     Name = "Piec elektryczny",
-                    Usage = 3
+                    Usage = 4200000
                 },
                 new()
                 {
                     Name = "Piec (inne)",
-                    Usage = 0
+                    Usage = 110000
                 },
             };
 
