@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -10,9 +11,10 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221015172913_Changed data models")]
+    partial class Changeddatamodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.9");
@@ -80,7 +82,7 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("AreaId")
+                    b.Property<Guid>("AreaId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("CategoryId")
@@ -89,8 +91,11 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("PointId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("XPosition")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("YPosition")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("YearlyUsage")
                         .HasColumnType("INTEGER");
@@ -100,9 +105,6 @@ namespace Persistence.Migrations
                     b.HasIndex("AreaId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("PointId")
-                        .IsUnique();
 
                     b.ToTable("ElectricityUsageRecords");
                 });
@@ -114,9 +116,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("AreaId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("RecordId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("XPosition")
@@ -153,21 +152,17 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Models.ElectricityUsageRecord", b =>
                 {
-                    b.HasOne("Domain.Models.Area", null)
+                    b.HasOne("Domain.Models.Area", "Area")
                         .WithMany("ElectricityUsagesRecords")
-                        .HasForeignKey("AreaId");
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Models.Category", null)
                         .WithMany("ElectricityUsageRecords")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Domain.Models.Point", "Point")
-                        .WithOne("ElectricityUsageRecord")
-                        .HasForeignKey("Domain.Models.ElectricityUsageRecord", "PointId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Point");
+                    b.Navigation("Area");
                 });
 
             modelBuilder.Entity("Domain.Models.Point", b =>
@@ -196,12 +191,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Models.ElectricityUsageRecord", b =>
                 {
                     b.Navigation("ElectricalAppliances");
-                });
-
-            modelBuilder.Entity("Domain.Models.Point", b =>
-                {
-                    b.Navigation("ElectricityUsageRecord")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

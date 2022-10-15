@@ -11,6 +11,7 @@ public class DataContext : DbContext
 
     public DbSet<Area> Areas { get; set; } = default!;
     public DbSet<Point> Points { get; set; } = default!;
-    public DbSet<Event> Events { get; set; } = default!;
     public DbSet<Category> Categories { get; set; } = default!;
+    public DbSet<ElectricalAppliance> ElectricalAppliances { get; set; } = default!;
+    public DbSet<ElectricityUsageRecord> ElectricityUsageRecords { get; set; } = default!;
 }

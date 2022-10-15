@@ -10,5 +10,5 @@ public class Area
     public Guid Id { get; set; }
     public string Name { get; set; } = default!;
     public ICollection<Point> Points { get; set; } = default!;
-    public ICollection<Event> Events { get; set; } = default!;
+    public ICollection<ElectricityUsageRecord> ElectricityUsagesRecords { get; set; } = default!;
 }
