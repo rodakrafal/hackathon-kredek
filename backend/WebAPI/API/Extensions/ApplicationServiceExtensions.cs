@@ -1,4 +1,6 @@
 using Application.Core;
+using Application.Interfaces;
+using Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -30,6 +32,7 @@ public static class ApplicationServiceExtensions
 
         // Add services, validators, automapper etc...
         services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+        services.AddScoped<IPopulateService, PopulateService>();
 
         return services;
     }
