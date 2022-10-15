@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { Login } from "./views/Login";
-import { Calculator, Home, Layout, Map } from "./routing";
+import { Home, Layout, Map } from "./routing";
+import { Calculator } from "./views/Calculator";
 
 import {
   createBrowserRouter,

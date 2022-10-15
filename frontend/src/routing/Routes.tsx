@@ -156,11 +156,11 @@ export function Map() {
   );
 }
 
-export function Calculator() {
-  return (
-    <>
-      <Typography>Calculator</Typography>
-      <p>dupa 2</p>
-    </>
-  );
-}
+// export function Calculator() {
+//   return (
+//     <>
+//       <Typography>Calculator</Typography>
+//       <p>dupa 2</p>
+//     </>
+//   );
+// }
