@@ -2,7 +2,7 @@ export default function SidePanel() {
 
     return (
       <>
-        <p>dupa</p>
+        <p>placeholder</p>
       </>
     );
   }

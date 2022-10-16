@@ -2,11 +2,30 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { LoadingSpinner } from '../../../../components/LoadingSpinner/intex';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+import { Box, Typography } from '@mui/material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const ApplianceChart = () => {
-    const [data, setData] = useState<number[]>([5, 7 ,3, 7 ,3, 7, 8]);
+    const [data, setData] = useState<number[]>([]);
+    const [name, setName] = useState('WYBIERZ REGION');
+    const dataMock = new Map<string, number[]>([
+        ['Psie Pole - Zawidawie', [5, 7, 3, 7, 3, 2, 1]],
+        ['Jagodno', [5, 7, 3, 7, 3, 7, 3]],
+        ['Ołbin', [5, 2, 3, 7, 1, 4, 8]],
+        ['Bieńkowice', [5, 7, 3, 3, 3, 7, 5]],
+        ['Nadodrze', [5, 4, 3, 0, 2, 7, 8]],
+        ['Wojszyce', [5, 7, 3, 7, 2, 5, 8]],
+        ['Pawłowice', [2, 6, 3, 7, 3, 7, 7]],
+        ['Szczepin', [5, 7, 9, 7, 6, 3, 8]],
+        ['Księże', [8, 7, 3, 7, 3, 7, 5]],
+        ['Sołtysowice', [5, 7, 2, 7, 6, 6, 8]],
+    ])
+
     const dataSet = {
         labels: ['Komputer stacjonarny', 'Laptop', 'Telewizor', 'Klimatyzacja', 'Lodówka', 'Zmywarka', 'Pralka', 'Piec elektryczny', 'Piec (inne)', 'Odkurzacz'],
         datasets: [
@@ -42,12 +61,73 @@ export const ApplianceChart = () => {
         ],
     };
 
-    if (data.length === 0) return <LoadingSpinner />;
-
+    // if (data.length === 0) return <LoadingSpinner />;
+    const handleSelect = (name: string) => {
+        let dataToSet: number[] | undefined = dataMock.get(name);
+        if (dataToSet) {
+            setData(dataToSet);
+            setName(name);
+        }
+    }
 
     return (
         <>
+            <Typography align='center'>
+                Udział poszczególnych urządzeń w zużyciu energi elektrycznej
+            </Typography>
+            <Box display="flex" justifyContent="center" >
+                <DropDown names={Array.from(dataMock.keys())} onSelect={handleSelect} name={name} />
+            </Box>
             <Pie data={dataSet} />
+        </>
+    )
+}
+
+interface DropDownProps {
+    onSelect: (name: string) => void;
+    names: string[];
+    name: string
+}
+
+export const DropDown = ({ onSelect, names, name }: DropDownProps) => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleSelect = (name: string) => {
+        onSelect(name);
+        handleClose();
+    }
+
+    return (
+        <>
+            <Button
+                id="fade-button"
+                aria-controls={open ? 'fade-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+            >
+                {name}
+            </Button>
+            <Menu
+                id="fade-menu"
+                MenuListProps={{
+                    'aria-labelledby': 'fade-button',
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Fade}
+            >
+                {names.map((name, index) => (
+                    <MenuItem key={index} onClick={() => { handleSelect(name) }}>{name}</MenuItem>
+                ))}
+            </Menu>
         </>
     )
 }

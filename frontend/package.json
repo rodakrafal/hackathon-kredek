@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.0.0",
     "axios": "^1.1.3",
     "chart.js": "^3.9.1",
+    "leaflet": "^1.9.2",
     "mapbox-gl": "^2.10.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
