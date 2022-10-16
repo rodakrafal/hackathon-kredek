@@ -67,13 +67,20 @@ namespace Application.Services
 
         public ServiceResponse<string> GetArea(int x, int y)
         {
-            ServiceResponse<string> response = new(HttpStatusCode.OK)
+            Point p = new() { XPosition = x, YPosition = y };
+            ServiceResponse<string> response = new(HttpStatusCode.OK);
+
+            foreach (var area in Context.Areas.Include(x => x.Points))
             {
-                ResponseContent = 
-                    PointInPolygon(new Point() { XPosition = x, YPosition = y }, area) 
-                        ? "Inside" 
-                        : "Outside"
-            };
+                if (PointInPolygon(p, area.Points.ToList()))
+                {
+                    response.ResponseContent = area.Name;
+                    return response;
+                }
+            }
+
+            response.StatusCode = HttpStatusCode.NotFound;
+            response.Errors = new List<string>() { $"Can't find area for ({x}, {y})" };
 
             return response;
 
@@ -93,13 +100,13 @@ namespace Application.Services
                 if (v[i].XPosition <= p.XPosition)
                 {         // start y <= P.y
                     if (v[i + 1].XPosition > p.XPosition)      // an upward crossing
-                        if (isLeft(v[i], v[i + 1], p) > 0)  // P left of edge
+                        if (IsLeft(v[i], v[i + 1], p) > 0)  // P left of edge
                             ++wn;            // have a valid up intersect
                 }
                 else
                 {                       // start y > P.y (no test needed)
                     if (v[i + 1].XPosition <= p.XPosition)     // a downward crossing
-                        if (isLeft(v[i], v[i + 1], p) < 0)  // P right of edge
+                        if (IsLeft(v[i], v[i + 1], p) < 0)  // P right of edge
                             --wn;            // have a valid down intersect
                 }
             }
@@ -133,7 +140,7 @@ namespace Application.Services
             return dictionary;
         }
 
-        private static int isLeft(Point P0, Point P1, Point P2)
+        private static int IsLeft(Point P0, Point P1, Point P2)
         {
             double calc = ((P1.YPosition - P0.YPosition) * (P2.XPosition - P0.XPosition)
                     - (P2.YPosition - P0.YPosition) * (P1.XPosition - P0.XPosition));
