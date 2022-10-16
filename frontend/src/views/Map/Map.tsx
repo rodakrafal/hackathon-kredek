@@ -127,7 +127,6 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <h1>dupa</h1>
       </Drawer>
     </Box>
   );

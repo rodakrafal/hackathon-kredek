@@ -189,8 +189,8 @@ export default function MapViewer() {
   return (
     <>
       <MapContainer
-        center={[51.22977, 17.01178]}
-        zoom={18}
+        center={[51.10880791769101, 17.06018903124676]}
+        zoom={14}
         whenCreated={setMap}
         scrollWheelZoom={true}
       >
