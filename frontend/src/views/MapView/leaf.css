@@ -1,0 +1,7 @@
+.leaflet-container {
+  /* margin: 30px auto; */
+  height: 85vh;
+  z-index: 0;
+  border: 2px solid #333;
+  overflow: hidden;
+}

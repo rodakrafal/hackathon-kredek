@@ -19,6 +19,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import * as React from "react";
 import { appName } from "../types/appInfo";
 import { FieldIcon } from "../components";
+import MapView from "../views/MapView/MapView";
+import PersistentDrawerRight from "../views/Map/Map";
 
 interface Props {
   window?: () => Window;
@@ -150,8 +152,7 @@ export function Home() {
 export function Map() {
   return (
     <>
-      <Typography>mapa</Typography>
-      <p>dupa</p>
+      <PersistentDrawerRight/>
     </>
   );
 }
