@@ -13,14 +13,16 @@ namespace Application.Services
 {
     public class AreaProvider : Service, IAreaProvider
     {
-        public AreaProvider(DataContext context, IMapper mapper) : base(context, mapper)
+        private readonly IAreaService _areaService;
+        public AreaProvider(DataContext context, IMapper mapper, IAreaService areaService) : base(context, mapper)
         {
+            _areaService = areaService;
         }
 
         public Area GetArea(Point point)
         {
-            return Context.Areas.Include(x => x.Points).ToArray().MinBy(x => (x.Points.First().XPosition - point.XPosition) * (x.Points.First().XPosition - point.XPosition) 
-            + (x.Points.First().YPosition - point.YPosition) * (x.Points.First().YPosition - point.YPosition));
+            var areaId = _areaService.GetAreaId(point.XPosition, point.YPosition);
+            return Context.Areas.Find(areaId);
         }
     }
 }

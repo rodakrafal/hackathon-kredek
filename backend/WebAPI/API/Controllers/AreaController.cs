@@ -21,7 +21,7 @@ namespace API.Controllers
             return SendResponse<GeoJson>(response);
         }
 
-        [HttpGet("name")]
+        [HttpGet("area-name")]
         public IActionResult GetArea([FromQuery] int x, [FromQuery] int y)
         {
             var response = _areaService.GetArea(x, y);
@@ -29,6 +29,16 @@ namespace API.Controllers
             return SendResponse<string>(response);
         }
 
+        [HttpGet("coords")]
+        public IActionResult GetAreaAppliancesUsage(int x, int y)
+        {
+            return SendResponse<IDictionary<string, int>>(_areaService.GetAreaAppliancesUsage(x, y));
+        }
 
+        [HttpGet("name")]
+        public IActionResult GetAreaAppliancesUsage(string name)
+        {
+            return SendResponse<IDictionary<string, int>>(_areaService.GetAreaAppliancesUsage(name));
+        }
     }
 }

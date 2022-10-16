@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Application.Services.Utilities;
 using AutoMapper;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using System.Linq;
 using System.Net;
@@ -76,39 +77,17 @@ namespace Application.Services
 
         public ServiceResponse<string> GetArea(int x, int y)
         {
-            Point p = new() { XPosition = x, YPosition = y };
-            ServiceResponse<string> response = new(HttpStatusCode.OK);
-
-            foreach (var area in Context.Areas)
+            ServiceResponse<string> response = new(HttpStatusCode.OK)
             {
-                if (PointInPolygon(p, area.Points.ToList()))
-                {
-                    response.ResponseContent = area.Name;
-                    return response;
-                }
-            }
-            response.StatusCode = HttpStatusCode.NoContent;
-            response.Errors = new List<string>() { "Could not find area" };
+                ResponseContent = 
+                    PointInPolygon(new Point() { XPosition = x, YPosition = y }, area) 
+                        ? "Inside" 
+                        : "Outside"
+            };
 
             return response;
 
         }
-
-        public Guid GetAreaId(int x, int y)
-        {
-            Point p = new() { XPosition = x, YPosition = y };
-            foreach (var area in Context.Areas)
-            {
-                if (PointInPolygon(p, area.Points.ToList()))
-                {
-                    return area.Id;
-                }
-            }
-
-            return Guid.Empty;
-        }
-
-
         public static bool PointInPolygon(Point p, List<Point> poly)
         {
             int n = poly.Count();
@@ -141,6 +120,29 @@ namespace Application.Services
 
         }
 
+        public ServiceResponse<IDictionary<string, int>> GetAreaAppliancesUsage(int x, int y)
+        {
+            var point = new Point()
+            {
+                XPosition = x,
+                YPosition = y
+            };
+
+            var areaId = GetAreaId(x, y);
+            return GetAreaAppliancesUsage(areaId);
+        }
+
+        public ServiceResponse<IDictionary<string, int>> GetAreaAppliancesUsage(string name)
+        {
+            var point = Context.Areas.Where(a => a.Name == name).FirstOrDefault();
+            if (point == null)
+            {
+                return new ServiceResponse<IDictionary<string, int>>(System.Net.HttpStatusCode.NotFound);
+            }
+            var dictionary = GetAreaAppliancesUsage(point.Id);
+            return dictionary;
+        }
+
         private static int isLeft(Point P0, Point P1, Point P2)
         {
             double calc = ((P1.YPosition - P0.YPosition) * (P2.XPosition - P0.XPosition)
@@ -151,6 +153,40 @@ namespace Application.Services
                 return -1;
             else
                 return 0;
+        }
+
+        private ServiceResponse<IDictionary<string, int>> GetAreaAppliancesUsage(Guid areaId)
+        {
+            var dictionary = new Dictionary<Guid, int>();
+            // var result = Context.Points.Include(x => x.ElectricityUsageRecord).Where(x => x.AreaId.Equals(areaId)).Where(x => x.ElectricityUsageRecord != null);
+            var result = Context.ElectricityUsageRecords.Include(x => x.Point).Include(x => x.ElectricalAppliances).Where(x => x.Point.AreaId.Equals(areaId));
+            foreach (var point in result)
+            {
+                foreach (var appliances in point.ElectricalAppliances)
+                {
+                    if (!dictionary.ContainsKey(appliances.CategoryId))
+                    {
+                        dictionary.Add(appliances.CategoryId, 0);
+                    }
+                    dictionary[appliances.CategoryId] += appliances.Amount;
+                }
+            }
+            var res = dictionary.ToDictionary(k => Context.Categories.Find(k.Key).Name, k => Context.Categories.Find(k.Key).Usage*k.Value);
+            return new ServiceResponse<IDictionary<string, int>>(System.Net.HttpStatusCode.OK, res);
+        }
+
+        public Guid GetAreaId(int x, int y)
+        {
+            Point p = new() { XPosition = x, YPosition = y };
+            foreach (var area in Context.Areas.Include(x => x.Points))
+            {
+                if (PointInPolygon(p, area.Points.ToList()))
+                {
+                    return area.Id;
+                }
+            }
+
+            return Guid.Empty;
         }
     }
 }
