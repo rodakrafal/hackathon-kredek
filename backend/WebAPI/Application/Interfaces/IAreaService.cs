@@ -6,6 +6,7 @@ namespace Application.Interfaces
     public interface IAreaService
     {
         public ServiceResponse<GeoJson> GetAreas();
+        public ServiceResponse<IEnumerable<string>> GetAreaNames();
 
         public ServiceResponse<string> GetArea(int x, int y);
         ServiceResponse<IDictionary<string, int>> GetAreaAppliancesUsage(int x, int y);

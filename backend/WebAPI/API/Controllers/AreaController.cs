@@ -21,6 +21,13 @@ namespace API.Controllers
             return SendResponse<GeoJson>(response);
         }
 
+        [HttpGet("area-names")]
+        public IActionResult GetAreasNames()
+        {
+            var result = _areaService.GetAreaNames();
+            return SendResponse<IEnumerable<string>>(result);
+        }
+
         [HttpGet("area-name")]
         public IActionResult GetArea([FromQuery] int x, [FromQuery] int y)
         {

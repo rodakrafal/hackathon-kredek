@@ -188,5 +188,15 @@ namespace Application.Services
 
             return Guid.Empty;
         }
+
+        public ServiceResponse<IEnumerable<string>> GetAreaNames()
+        {
+            var names = Context.Areas.Select(x => x.Name).ToList();
+            var response = new ServiceResponse<IEnumerable<string>>(System.Net.HttpStatusCode.OK)
+            {
+                ResponseContent = names
+            };
+            return response;
+        }
     }
 }
