@@ -5,6 +5,7 @@ import ModelTrainingIcon from "@mui/icons-material/ModelTraining";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import MapIcon from "@mui/icons-material/Map";
 import MenuIcon from "@mui/icons-material/Menu";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 interface IconsProps {
   [name: string]: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
@@ -17,6 +18,7 @@ const icons: IconsProps = {
     "Calculator": CalculateIcon,
     "Menu": MenuIcon,
     "Logo": ModelTrainingIcon,
+    "Statistics": AssessmentIcon
   };
   
   export const FieldIcon = ({ name }: { name: string }) => {

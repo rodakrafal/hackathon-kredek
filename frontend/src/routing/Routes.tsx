@@ -18,14 +18,16 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import * as React from "react";
 import { appName } from "../types/appInfo";
-import { FieldIcon } from "../components/FieldIcon";
+import { FieldIcon } from "../components";
+import MapView from "../views/MapView/MapView";
+import PersistentDrawerRight from "../views/Map/Map";
 
 interface Props {
   window?: () => Window;
 }
 
 const drawerWidth = 240;
-const navItems = ["Map", "Calculator"];
+const navItems = ["Map", "Calculator", "Statistics"];
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
@@ -150,8 +152,7 @@ export function Home() {
 export function Map() {
   return (
     <>
-      <Typography>mapa</Typography>
-      <p>dupa</p>
+      <PersistentDrawerRight/>
     </>
   );
 }
