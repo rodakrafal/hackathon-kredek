@@ -18,6 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import * as React from "react";
 import { appName } from "../types/appInfo";
+import { FieldIcon } from "../components/FieldIcon";
 import MapView from "../views/MapView/MapView";
 import PersistentDrawerRight from "../views/Map/Map";
 import { FieldIcon } from "../components/FieldIcon";

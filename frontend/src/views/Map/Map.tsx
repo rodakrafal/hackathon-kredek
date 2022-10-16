@@ -105,7 +105,7 @@ export default function PersistentDrawerRight() {
         </Toolbar>
       </AppBar>
       </Box>
-      <Main open={open}>
+      <Main open={open} sx={{padding:"0px"}}>
         <DrawerHeader />
         <MapViewer />
       </Main>
