@@ -15,16 +15,6 @@ namespace Application.Services
         private const double REF_X = 20037508.34;
         private const double REF_E = 2.7182818284;
 
-        List<Point> area = new List<Point>()
-        {
-            new Point() {XPosition = 0, YPosition = 0},
-            new Point() {XPosition = 4, YPosition = 2},
-            new Point() {XPosition = 10, YPosition = 0},
-            new Point() {XPosition = 10, YPosition = 10},
-            new Point() {XPosition = 0, YPosition = 10},
-            new Point() {XPosition = 0, YPosition = 0},
-        };
-
         public AreaService(DataContext context, IMapper mapper) : base(context, mapper)
         {
         }
@@ -44,9 +34,9 @@ namespace Application.Services
                     {
                         Type = "Polygon",
                         Coordinates = new List<List<List<double>>>() {
-                            a.Points.Select(p => new List<double>() { 
-                                ConvertReferenceSystemLatitude(p.YPosition),
-                                ConvertReferenceSystemLongitude(p.XPosition) 
+                            a.Points.Select(p => new List<double>() {
+                                ConvertReferenceSystemLongitude(p.XPosition),
+                                ConvertReferenceSystemLatitude(p.YPosition)
                             }).ToList()
                         }
                     }
