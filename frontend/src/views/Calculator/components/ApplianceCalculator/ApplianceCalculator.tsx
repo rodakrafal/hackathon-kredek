@@ -58,8 +58,6 @@ export const ApplianceCalculator: React.FC = () => {
         if (category.amount === 0) return;
 
         category.amount--;
-        console.log(typeof(cost));
-        console.log(typeof(category.usage));
         setCost(cost - category.usage);
 
         let filtredCategories = categories.filter(x => x.id !== id);
@@ -96,7 +94,7 @@ export const ApplianceCalculator: React.FC = () => {
                     ))}
                 </Box>
                 <Typography align='center'>
-                    Szacowane roczne zużycie: {cost / 1000} kWh
+                    Szacowane roczne zużycie: {cost / 1000} kWh {cost < 2000000  ? "😄" : "🙁"}
                 </Typography>
             </Box>
         </>
