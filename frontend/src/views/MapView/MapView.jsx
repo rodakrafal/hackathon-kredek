@@ -182,8 +182,10 @@ const MyMarkers = ({ map }) => {
 export default function MapViewer() {
   const [map, setMap] = useState(null);
   const tileLayer = {
-    attribution: '&copy; <a href="http://cartodb.com/attributions">CartoDB</a> contributors',
-    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png'
+    // attribution: '&copy; <a href="http://cartodb.com/attributions">CartoDB</a> contributors',
+    // url: 'https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png'
+    attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a>OpenStreetMap</a> contributors',
+    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   };
 
   return (
