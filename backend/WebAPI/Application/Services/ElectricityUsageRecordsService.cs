@@ -11,12 +11,15 @@ namespace Application.Services
     public class ElectricityUsageRecordsService : Service, IElectricityUsageRecordsService
     {
         private readonly IElectricityUsageRecordStatsService _electricityUsageRecordStatsService;
+        private readonly IAreaProvider _areaProvider;
         public ElectricityUsageRecordsService(
             DataContext context,
             IMapper mapper,
-            IElectricityUsageRecordStatsService electricityUsageRecordStatsService) : base(context, mapper)
+            IElectricityUsageRecordStatsService electricityUsageRecordStatsService,
+            IAreaProvider areaProvider) : base(context, mapper)
         {
             _electricityUsageRecordStatsService = electricityUsageRecordStatsService;
+            _areaProvider = areaProvider;
         }
 
         public ServiceResponse<IEnumerable<ElectricityUsageRecordViewModel>> GetElectricityUsageRecords()
@@ -52,11 +55,23 @@ namespace Application.Services
 
             if (publish)
             {
-                point.AreaId = Context.Areas.First<Area>().Id;
+                point.AreaId = _areaProvider.GetArea(point).Id;
                 Context.Points.Add(point);
                 electricityRecord.PointId = point.Id;
                 Context.ElectricityUsageRecords.Add(electricityRecord);
                 Context.SaveChanges();
+            }
+            else
+            {
+                point = new Point()
+                {
+                    XPosition = x,
+                    YPosition = y,
+                };
+
+                point.Area = _areaProvider.GetArea(point);
+                point.AreaId = point.Area.Id;
+                electricityRecord.Point = point;
             }
 
             var stats = _electricityUsageRecordStatsService.GetElectricityUsageRecordStats(electricityRecord);

@@ -27,6 +27,7 @@ namespace Application.Services
                 .ToList()
                 .Where(x => GetElectricityUsageGrade(x) >= GetElectricityUsageGrade(electricityUsageRecord) * 0.9)
                 .Where(x => GetElectricityUsageGrade(x) <= GetElectricityUsageGrade(electricityUsageRecord) * 1.1)
+                .Append(electricityUsageRecord)
                 .Average(x => x.YearlyUsage);
 
             return new ElectricityUsageRecordStats()
