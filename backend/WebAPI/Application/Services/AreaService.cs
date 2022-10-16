@@ -76,17 +76,39 @@ namespace Application.Services
 
         public ServiceResponse<string> GetArea(int x, int y)
         {
-            ServiceResponse<string> response = new(HttpStatusCode.OK)
+            Point p = new() { XPosition = x, YPosition = y };
+            ServiceResponse<string> response = new(HttpStatusCode.OK);
+
+            foreach (var area in Context.Areas)
             {
-                ResponseContent = 
-                    PointInPolygon(new Point() { XPosition = x, YPosition = y }, area) 
-                        ? "Inside" 
-                        : "Outside"
-            };
+                if (PointInPolygon(p, area.Points.ToList()))
+                {
+                    response.ResponseContent = area.Name;
+                    return response;
+                }
+            }
+            response.StatusCode = HttpStatusCode.NoContent;
+            response.Errors = new List<string>() { "Could not find area" };
 
             return response;
 
         }
+
+        public Guid GetAreaId(int x, int y)
+        {
+            Point p = new() { XPosition = x, YPosition = y };
+            foreach (var area in Context.Areas)
+            {
+                if (PointInPolygon(p, area.Points.ToList()))
+                {
+                    return area.Id;
+                }
+            }
+
+            return Guid.Empty;
+        }
+
+
         public static bool PointInPolygon(Point p, List<Point> poly)
         {
             int n = poly.Count();

@@ -8,5 +8,6 @@ namespace Application.Interfaces
         public ServiceResponse<GeoJson> GetAreas();
 
         public ServiceResponse<string> GetArea(int x, int y);
+        public Guid GetAreaId(int x, int y);
     }
 }
