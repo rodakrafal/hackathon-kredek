@@ -18,9 +18,9 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import * as React from "react";
 import { appName } from "../types/appInfo";
-import { FieldIcon } from "../components";
 import MapView from "../views/MapView/MapView";
 import PersistentDrawerRight from "../views/Map/Map";
+import { FieldIcon } from "../components/FieldIcon";
 
 interface Props {
   window?: () => Window;
@@ -86,6 +86,7 @@ export default function DrawerAppBar(props: Props) {
                 display: { xs: "none", sm: "block", cursor: "pointer" },
               }}
               onClick={() => handlePageChange("/")}
+              color='#fdd835'
             >
               {appName}
             </Typography>
@@ -136,15 +137,6 @@ export function Layout() {
     <>
       <DrawerAppBar />
       <Outlet />
-    </>
-  );
-}
-
-export function Home() {
-  return (
-    <>
-      <Typography>domek</Typography>
-      <p>dupa w domu</p>
     </>
   );
 }
