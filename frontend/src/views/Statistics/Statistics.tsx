@@ -1,6 +1,6 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material"
 import { useState } from "react";
-import { ApplianceCalculator } from "./components/ApplianceCalculator";
+import { ApplianceChart } from "./components/ApplianceChart";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -35,7 +35,7 @@ function a11yProps(index: number) {
     };
 }
 
-export const Calculator: React.FC = () => {
+export const Statistics = () => {
     const [value, setValue] = useState(0);
 
     const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -52,13 +52,13 @@ export const Calculator: React.FC = () => {
                 <Box>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{width: '40vw'}}>
-                            <Tab label="Szacowane zużycie" {...a11yProps(0)} />
+                            <Tab label="Urządzenia elektryczne" {...a11yProps(0)} />
                             <Tab label="[Not implemented]" {...a11yProps(1)} />
                             <Tab label="[Not implemented]" {...a11yProps(2)} />
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <ApplianceCalculator />
+                        <ApplianceChart />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         [Not implemented]
